@@ -1,0 +1,11 @@
+MAXITER=100
+
+# NN
+for LR in 0.001
+do
+for LBD in 1
+do
+	python toy2d_db_ensemble.py --max_iter $MAXITER --lbd $LBD --lr $LR --sampler NN
+
+done
+done
