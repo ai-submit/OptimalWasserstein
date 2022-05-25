@@ -1,0 +1,17 @@
+MAXITER=100
+TRIAL=10
+Nsample=128
+STEP=10
+
+# WGF
+for i in $(seq 1 ${TRIAL})
+do
+	mpirun -n 1 python main_covid19.py --WGF --WGF_cvxNN --sample_num 50 --cvx_solver MOSEK --lbd_decay 0.95 --lbd 10 --lr 1e-1 --line_search --max_iter $MAXITER --projection
+
+	cp data/data_nSamples_${Nsample}_isProjection_True_WGF_cvxNN.p data/data_nSamples_${Nsample}_isProjection_True_WGF_cvxNN_$i.p
+	for j in $(seq ${STEP} ${STEP} ${MAXITER})
+	do
+		cp data/particle_isProjection_True_iteration_${j}.npz data/particle_isProjection_True_WGF_cvxNN_trial_${i}_iteration_${j}.npz
+	done
+	cp data/social-distancing.npz data/social-distancing-WGF.npz
+done
