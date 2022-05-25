@@ -1,0 +1,14 @@
+MAXITER=100
+DIMENSION=81
+
+
+# pWGF_NN
+for LBD in 10 5 2 1 0.5 0.1
+do
+for i in $(seq 1 10)
+do 
+        mpirun -n 1 python main.py --WGF --WGF_NN --lbd $LBD --cubic_reg --lr 1e-1 --line_search --max_iter $MAXITER --num_neurons 200 --projection --lbd_decay 0.95
+
+        cp data/data_nDimensions_${DIMENSION}_nCores_1_nSamples_64_isProjection_True_WGF_NN.p data/data_nDimensions_${DIMENSION}_nCores_1_nSamples_64_isProjection_True_WGF_NN_ReLU_sq_200_lbd_${LBD}_decay95_$i.p
+done
+done

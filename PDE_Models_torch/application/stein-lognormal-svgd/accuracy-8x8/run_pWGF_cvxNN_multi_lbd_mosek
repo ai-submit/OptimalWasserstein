@@ -1,0 +1,13 @@
+MAXITER=100
+DIMENSION=81
+
+# pWGF_cvxNN
+for LBD in 10 5 2 1 0.5 0.1
+do
+for i in $(seq 1 10)
+do
+	mpirun -n 1 python main.py --WGF --WGF_cvxNN --sample_num 50 --cvx_solver MOSEK --lbd_decay 0.95 --lbd $LBD --lr 1e-1 --line_search --max_iter $MAXITER --projection --cvx_verbose
+
+	cp data/data_nDimensions_${DIMENSION}_nCores_1_nSamples_64_isProjection_True_WGF_cvxNN.p data/data_nDimensions_${DIMENSION}_nCores_1_nSamples_64_isProjection_True_WGF_cvxNN_lbd_${LBD}_decay95_$i.p
+done
+done
