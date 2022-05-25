@@ -1,0 +1,18 @@
+MAXITER=200
+DIMENSION=17
+
+# pWGF_cvxNN
+for i in $(seq 1 10)
+do
+	mpirun -n 1 python main.py --WGF --WGF_cvxNN --sample_num 50 --cvx_solver SCS --lbd_decay 0.93 --lbd 5 --lr 1e-1 --line_search --max_iter $MAXITER --projection
+
+	cp data/data_nDimensions_${DIMENSION}_nCores_1_nSamples_16_isProjection_True_WGF_cvxNN.p data/data_nDimensions_${DIMENSION}_nCores_1_nSamples_16_isProjection_True_WGF_cvxNN_lbd_5_decay93_$i.p
+done
+
+# pWGF_cvxNN
+for i in $(seq 1 10)
+do
+	mpirun -n 1 python main.py --WGF --WGF_cvxNN --sample_num 50 --cvx_solver SCS --lbd_decay 0.95 --lbd 5 --lr 1e-1 --line_search --max_iter $MAXITER --projection
+
+	cp data/data_nDimensions_${DIMENSION}_nCores_1_nSamples_16_isProjection_True_WGF_cvxNN.p data/data_nDimensions_${DIMENSION}_nCores_1_nSamples_16_isProjection_True_WGF_cvxNN_lbd_5_decay95_$i.p
+done

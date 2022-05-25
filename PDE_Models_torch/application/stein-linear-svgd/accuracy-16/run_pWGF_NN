@@ -1,0 +1,10 @@
+MAXITER=200
+DIMENSION=17
+
+# pWGF_NN
+for i in $(seq 1 10)
+do
+	mpirun -n 1 python main.py --WGF --WGF_NN --lbd 1e-3 --cubic_reg --lr 1e-1 --line_search --max_iter $MAXITER --num_neurons 200 --projection --activation ReLU_sq
+
+	cp data/data_nDimensions_${DIMENSION}_nCores_1_nSamples_16_isProjection_True_WGF_NN.p data/data_nDimensions_${DIMENSION}_nCores_1_nSamples_16_isProjection_True_WGF_NN_ReLU_sq_200_$i.p
+done
